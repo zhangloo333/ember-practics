@@ -1,0 +1,9 @@
+<h3>this is people router</h3>
+<!-- log is handbar command -->
+{{log model}}
+{{#each model as |people|}}
+  <li><strong>{{people.name}}</strong>: {{people.email}}</li>
+{{/each}}
+
+{{email-list people=model title="This is email list"}}
+{{outlet}}
