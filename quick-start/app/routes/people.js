@@ -39,3 +39,63 @@ console.log(night.name);
 console.log(night.type);
 
 // console.log(night.name);
+
+/**
+ * below is computing perporty
+ */
+
+const NewPerson = EmberObject.extend({
+  fName: null,
+  lName: null,
+  // fullname: function() {
+  //   return this.fName + '' + this.lName;
+  // }
+  fullName: Ember.computed('fName', 'lName',function(){
+      return  `${this.get('fName')} ${this.get('lName')}`
+  })
+});
+
+const newNight = NewPerson.create({
+  fName: 'Albert',
+  lName: 'Yu',
+  // renderer: {}
+})
+
+console.log(newNight.get('fullName'));
+console.log(newNight.set('fName','nighttire'));
+console.log(newNight.get('fullName'));
+
+/**
+* 如果computeing 的set的方法，直接可以改变fullname的值得
+*/
+
+const NewPerson2 = EmberObject.extend({
+  fName: null,
+  lName: null,
+  //这里就不是个funtion(){} 的回掉了，而是一个{}的 callback
+  fullName: Ember.computed('fName', 'lName',{
+    get(){
+      return
+    },
+    set(key,value){
+      const [f,l] = value.split(/\s/);
+      this.set('fName',f);
+      this.set('lName',l);
+      return value;
+    }
+  })
+});
+
+const newNight2 = NewPerson.create({
+  fName: 'Albert',
+  lName: 'Yu',
+})
+
+console.log('without Ediet = ',newNight2.get('fullName'));
+newNight2.set('fName','nightire');
+console.log(newNight2.get('fullName'));
+newNight2.set('fullName','Yu Fan');
+
+console.log('after Ediet = ',newNight2.get('fullName'));
+console.log(newNight2.get('fName'));
+console.log(newNight2.get('lName'));
