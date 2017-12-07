@@ -1,0 +1,13 @@
+<nav>
+  <a href="/about">about company</a>
+  <!-- 一下是用link-to动态的生成一些模版 -->
+  {{link-to "about company" "about"}}
+
+  <a href="/contact">about us</a>
+  <!-- linke to 的快捷方法去生成 -->
+  {{#link-to 'parent'}}
+    go to parent
+  {{/link-to}}
+</nav>
+
+{{outlet}}
