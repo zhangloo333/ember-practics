@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('parent',function() {
     this.route('children')
   })
+  this.route('404', { path: '/*wildcard'});
 });
 
 export default Router;
