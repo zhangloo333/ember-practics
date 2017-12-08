@@ -10,4 +10,29 @@
   {{/link-to}}
 </nav>
 
+<h1>Ajax data</h1>
+<h2>method 1 直接在modle里面 写ul</h2>
+<ul>
+  {{#each model as |person|}}
+    <li>{{concat person.id '---' person.login}}</li>
+  {{/each}}
+</ul>
+
+<h1>Ajax data</h1>
+<h2>method 2 用component</h2>
+<ul>
+  {{#each model as |person|}}
+    {{ui/ui-cord item = person}}
+  {{/each}}
+</ul>
+
+<h1>修改上面 method2 li是被div包含的问题</h1>
+
+<p>需要在ui-cord的js文件里面</p>
+<ul>
+  {{#each model as |person|}}
+    {{ui/ui-cord item = person}}
+  {{/each}}
+</ul>
+
 {{outlet}}
