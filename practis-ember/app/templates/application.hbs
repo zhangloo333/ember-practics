@@ -28,11 +28,25 @@
 
 <h1>修改上面 method2 li是被div包含的问题</h1>
 
-<p>需要在ui-cord的js文件里面</p>
+<p>需要在ui-cord的js文件里面 写上 key-value pair 是 tagName: 'li'</p>
+<ul>
+  <li>1.首先把ui-cord template里面的li去掉</li>
+</ul>
 <ul>
   {{#each model as |person|}}
     {{ui/ui-cord item = person}}
   {{/each}}
 </ul>
 
+<section>
+  <h1>this is for test helper function</h1>
+  <p>template 里面支持 更多的自定义运算:这里面是sum 运算 </p>
+  <p></p>
+  <p>Total: {{sum (mutiple 2 4) 3 3}}</p>
+</section>
+
+
+<section>
+
+</section>
 {{outlet}}
