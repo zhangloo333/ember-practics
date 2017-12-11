@@ -39,6 +39,16 @@
 </ul>
 
 <section>
+  <h1>loop helper: 怎么添加index 的选项</h1>
+  <ul>
+    {{#each model as |person index|}}
+      <span>{{index}}:</span>
+      {{ui/ui-cord item = person}}
+    {{/each}}
+  </ul>
+</section>
+
+<section>
   <h1>this is for test helper function</h1>
   <p>template 里面支持 更多的自定义运算:这里面是sum 运算 </p>
   <p></p>
@@ -47,6 +57,11 @@
 
 
 <section>
-
+<h1>action helper 的使用</h1>
+<button {{action "toggleBody"}}>隐藏内容</button>
+{{testData}}
+{{#if isShowingBody}}
+  <p>this is body</p>
+{{/if}}
 </section>
 {{outlet}}
