@@ -5,7 +5,8 @@ export default Ember.Route.extend({
 
   model() {
     let self = this;
-    return this.get('ajax').request('//api.github.com/users');
+    return self.get('ajax').request('https://api.github.com/users');
+    // return self.get('ajax').request('/api/people');
     // return new Ember.RSVP.Promise((resolve,reject)=>{
     //   setTimeout(function(){reject(
     //     {message:'error happen'}
