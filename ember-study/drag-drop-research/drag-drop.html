@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>drag and drop api</title>
+  <style>
+    .draggable {
+      width: 200px;
+      height: 20px;
+      text-align: center;
+      background: white;
+      margin: 10px 0;
+    }
+
+    .dropzone {
+      width: 200px;
+      min-height: 50px;
+      background: blueviolet;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+  </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+</head>
+可以用 jquery index()来找到 这个 数据
+<body>
+  <ul class="dropzone">
+    <li class="draggable" id="drop-1"draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+      This div is draggable1
+    </li>
+    <li class="draggable" id="drop-2" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+      This div is draggable2
+    </li>
+    <li class="draggable" id="drop-3" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+      This div is draggable3
+    </li>
+    <li class="draggable" id="drop-4" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+      This div is draggable4
+    </li>
+  </ul>
+  <div class="dropzone"></div>
+  <div class="dropzone"></div>
+  <div class="dropzone"></div>
+
+
+  <script>
+       var dragged;
+
+      /* events fired on the draggable target */
+      document.addEventListener("drag", function (event) {
+          // console.log('This event is fired when an element or text selection is being dragged.');
+          // console.log('event', event);
+      }, false);
+
+      document.addEventListener("dragstart", function (event) {
+        // store a ref. on the dragged elem
+        dragged = event.target;
+
+              var index = $(event.target).index();
+        console.log('index', index);
+        // console.log('This event is fired when the user starts dragging an element or text selection.');
+        // make it half transparent
+        // event.target.style.opacity = .5;
+        event.target.style.color = 'red';
+      }, false);
+
+      document.addEventListener("dragend", function (event) {
+        // reset the transparency
+        // console.log('This event is fired when a drag operation is being ended(by releasing a mouse button or hitting the escape key');
+        event.target.style.opacity = "";
+        console.log('dragend target end', event);
+      }, false);
+
+      /* events fired on the drop targets */
+      document.addEventListener("dragover", function (event) {
+        // prevent default to allow drop
+        event.preventDefault();
+      }, false);
+
+      document.addEventListener("dragenter", function (event) {
+        // this event mainly focus on destination area.
+          // console.log('dragenter', 'event target', event.target);
+          // this event target 是 你拽的东西 落在哪个地方的html target
+
+        // highlight potential drop target when the draggable element enters it
+        if (event.target.className == "dropzone") {
+          event.target.style.background = "purple";
+        }
+
+
+      }, false);
+
+      document.addEventListener("dragleave", function (event) {
+        // reset background of potential drop target when the draggable element leaves it
+        if (event.target.className == "dropzone") {
+          event.target.style.background = "";
+        }
+
+      }, false);
+
+      document.addEventListener("drop", function (event) {
+        // 当你的drop 被释放成功的时候，在哪释放的，这个object就是谁。
+        console.log('drop event', event);
+
+        var target = $(event.target);
+        newIndex = target.index();
+        console.log('newIndex', newIndex);
+        // prevent default action (open as link for some elements)
+        event.preventDefault();
+        // move dragged elem to the selected drop target
+        if (event.target.className == "dropzone") {
+          event.target.style.background = "";
+          dragged.parentNode.removeChild(dragged);
+          event.target.appendChild(dragged);
+        }
+      }, false);
+
+  </script>
+</body>
+</html>

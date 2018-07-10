@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Order drag and drop list</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <style>
+      .draggable {
+      width: 200px;
+      height: 20px;
+      text-align: center;
+      background: white;
+      margin: 10px 0;
+    }
+
+    .dropzone {
+      width: 200px;
+      min-height: 50px;
+      background: blueviolet;
+      margin-bottom: 10px;
+      padding: 10px;
+      cursor: move;
+    }
+    </style>
+</head>
+<body>
+  <div class="dropzone">
+    <div class="draggable" id="drop-1" draggable="true">
+      This div is draggable1
+    </div>
+    <div class="draggable" id="drop-2" draggable="true">
+      This div is draggable2
+    </div>
+    <div class="draggable" id="drop-3" draggable="true">
+      This div is draggable3
+    </div>
+    <div class="draggable" id="drop-4" draggable="true" >
+      This div is draggable4
+    </div>
+  </div>
+  <script>
+    let isDragAndDropSupport = true;
+
+    var dragstart = function(e) {
+      var index = $(e.target).index();
+      console.log('index', index);
+      index += "";
+
+      try {
+        e.dataTransfer.setData('text/plain', index);
+      } catch(ex) {
+        e.dataTransfer.setData('Text', index);
+        isDragAndDropSupport = false;
+      }
+    }
+
+    var dropped = function(e) {
+      // cancel(e);
+      console.log('enter drop');
+      var oldIndex;
+
+      if(isDragAndDropSupport) {
+        oldIndex = e.dataTransfer.getData('text/plain');
+      } else {
+        oldIndex = e.dataTransfer.getData('Text');
+      }
+
+
+
+      var target = $(e.target);
+      newIndex = target.index();
+
+      console.log('newIndex', newIndex);
+      dropped = $(this).parent().children().eq(oldIndex);
+
+      dropped.remove();
+
+      if(newIndex < oldIndex) {
+        target.before(dropped);
+      } else {
+        target.after(dropped);
+      }
+    }
+
+    document.addEventListener("dragstart", dragstart, false);
+
+
+
+    document.addEventListener("dragenter", function(e){
+
+    }, false);
+
+    document.addEventListener("dragover", function() {
+    }, false);
+
+    document.addEventListener("drop", function (event) {
+      // 当你的drop 被释放成功的时候，在哪释放的，这个object就是谁。
+      console.log('drop event', event);
+
+      // prevent default action (open as link for some elements)
+      event.preventDefault();
+      // move dragged elem to the selected drop target
+      if (event.target.className == "dropzone") {
+        event.target.style.background = "";
+        dragged.parentNode.removeChild(dragged);
+        event.target.appendChild(dragged);
+      }
+    }, false);
+  </script>
+</body>
+</html>

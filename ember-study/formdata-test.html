@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+</head>
+<body>
+  <section>
+    <form id="myForm" name="myForm">
+      <div>
+        <label for="username">Enter name:</label>
+        <input type="text" id="username" name="username">
+      </div>
+      <div>
+        <label for="useracc">Enter account number:</label>
+        <input type="text" id="useracc" name="useracc">
+      </div>
+      <div>
+        <label for="userfile">Upload file:</label>
+        <input type="file" id="userfile" name="userfile" onchange="onSelect(event)">
+      </div>
+      <input type="submit" value="Submit!">
+    </form>
+    <script>
+      var myForm = document.getElementById('myForm'); formData = new FormData(myForm);
+
+      function onSelect(event) {
+        console.log(event);
+        console.log(event.target);
+      }
+      // formData.append('fileObject', )
+    </script>
+  </section>
+  <section>
+        <style>
+          #holder {
+            border: 10px dashed #ccc;
+            width: 300px;
+            min-height: 300px;
+            margin: 20px auto;
+          }
+
+          #holder.hover {
+            border: 10px dashed #0c0;
+          }
+        </style>
+    <div id="holder"></div>
+    <script>
+    　if('draggable' in document.createElement('span')){
+
+　　　　var holder = document.getElementById('holder');
+
+　　　　holder.ondragover = function () { this.className = 'hover'; return false; };
+　　　　holder.ondragleave = function () { this.className = ''; return false; };
+
+　　　　holder.ondragend = function () { this.className = ''; return false; };
+
+　　　　holder.ondrop = function (event) {
+
+　　　　　　event.preventDefault();
+
+　　　　　　this.className = '';
+
+　　　　　　var files = event.dataTransfer.files;
+          console.log('dragEvent', event)
+          console.log('dragEventtarget', event.dataTransfer.files)
+
+　　　　　　// do something with files
+
+　　　　};
+　　}
+    </script>
+  </section>
+</body>
+</html>
+
