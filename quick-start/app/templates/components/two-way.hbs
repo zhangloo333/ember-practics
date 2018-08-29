@@ -1,0 +1,23 @@
+<section>
+  <h3>too way binding for lowercase and uppper case</h3>
+  <input
+    type="text"
+    class="lowercase-feild"
+    value= {{str}}
+    onInput= {{action (mut str)
+    value='target.value'}}
+  >
+
+  <input
+    type="text"
+    class="uppercase-feild"
+    value= {{upCase}}
+    onInput= {{action (mut upCase)
+    value='target.value'}}
+  >
+<div>
+  <p><strong>str: </strong>{{str}}</p>
+  <p><strong>upCase: </strong>{{upCase}}</p>
+</div>
+</section>
+{{yield}}
